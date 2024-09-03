@@ -7,30 +7,52 @@
 
         <title>{{ config('app.name', 'Laravel') }}</title>
 
-        <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+        {{-- Favicon --}}
+        <link rel="icon" href="{{ asset('images/favicon.png') }}" type="image/png">
 
         <!-- Scripts -->
-        @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+        @vite(['resources/sass/app.scss', 'resources/js/custom/store.js'])
     </head>
-    <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100">
-            @include('layouts.navigation')
-
-            <!-- Page Heading -->
-            @isset($header)
-                <header class="bg-white shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        {{ $header }}
+    <body class="font-inter dashcode-app" id="body_class">
+        <div class="app-wrapper">
+    
+            <!-- BEGIN: Sidebar Navigation -->
+            <x-sidebar-menu />
+            <!-- End: Sidebar -->
+    
+            <!-- BEGIN: Settings -->
+            {{-- <x-dashboard-settings /> --}}
+            <!-- End: Settings -->
+    
+            <div class="flex flex-col justify-between min-h-screen">
+                <div>
+                    <!-- BEGIN: header -->
+                    <x-dashboard-header />
+                    <!-- BEGIN: header -->
+    
+                    <div class="content-wrapper transition-all duration-150 ltr:ml-0 xl:ltr:ml-[248px] rtl:mr-0 xl:rtl:mr-[248px]" id="content_wrapper">
+                        <div class="page-content">
+                            <div class="transition-all duration-150 container-fluid" id="page_layout">
+                                <main id="content_layout">
+                                    <!-- Page Content -->
+                                    {{ $slot }}
+                                </main>
+                            </div>
+                        </div>
                     </div>
-                </header>
-            @endisset
-
-            <!-- Page Content -->
-            <main>
-                {{ $slot }}
-            </main>
+                </div>
+    
+                <!-- BEGIN: footer -->
+                <x-dashboard-footer />
+                <!-- BEGIN: footer -->
+    
+            </div>
         </div>
+    
+        @vite(['resources/js/app.js', 'resources/js/main.js'])
+    
+    
+    
+        @stack('scripts')
     </body>
 </html>

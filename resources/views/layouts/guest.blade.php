@@ -1,30 +1,52 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="light">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
-
-        <title>{{ config('app.name', 'Laravel') }}</title>
-
-        <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-
-        <!-- Scripts -->
-        @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+        <title>{{ config('app.name', 'dashcode') }}</title>
+        <x-favicon/>
+        {{-- Scripts --}}
+        @vite(['resources/sass/app.scss', 'resources/js/custom/store.js'])
     </head>
-    <body class="font-sans text-gray-900 antialiased">
-        <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
-            <div>
-                <a href="/">
-                    <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-                </a>
-            </div>
+    <body>
 
-            <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
-                {{ $slot }}
+        <div class="loginwrapper">
+            <div class="lg-inner-column">
+                <div class="left-column relative z-[1]">
+                    <div class="max-w-[520px] pt-20 ltr:pl-20 rtl:pr-20">
+                        <!-- APPLICATION LOGO -->
+                        <div class="mb-6">
+                            <x-application-logo />
+                        </div>
+                        {{-- <h4>
+                            {{ __('Unlock your project') }}
+                            <span class="text-slate-800 dark:text-slate-400 font-bold">
+                                {{ __('Performance') }}
+                            </span>
+                        </h4> --}}
+                    </div>
+                    <div class="absolute left-0 2xl:bottom-[-160px] bottom-[-130px] h-full w-full z-[-1]">
+                        <img class="h-full w-full object-containll" src="{{ asset('images/codenex-icon-light.svg') }}" alt="image">
+                    </div>
+                </div>
+                <div class="right-column  relative">
+                    <div class="inner-content h-full flex flex-col bg-white dark:bg-slate-800">
+                        {{ $slot }}
+                        <div class="auth-footer text-center">
+                            {{ __('Copyright') }}
+                            <script>
+                                document.write(new Date().getFullYear())
+                            </script>
+                            , <a href="#">{{ __('Codenex') }}</a>
+                            {{ __('All Rights Reserved.') }}
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
+
+
+        @vite(['resources/js/app.js'])
     </body>
 </html>
